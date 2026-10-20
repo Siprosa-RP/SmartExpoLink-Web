@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { X, CheckCircle2, ArrowRight } from 'lucide-react';
+import { X, CheckCircle2, ArrowRight, Loader2 } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
+import { supabase } from '../lib/supabase';
 
 export function LeadCaptureModal({ isOpen, onClose, initialPlan, t }) {
   const [selectedPlan, setSelectedPlan] = useState(initialPlan || 'expopass');
@@ -8,20 +9,50 @@ export function LeadCaptureModal({ isOpen, onClose, initialPlan, t }) {
   const [company, setCompany] = useState('');
   const [email, setEmail] = useState('');
   const [crm, setCrm] = useState('Odoo 19');
+  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
     if (initialPlan) {
       setSelectedPlan(initialPlan);
     }
     setSubmitted(false);
+    setErrorMsg('');
   }, [initialPlan, isOpen]);
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setErrorMsg('');
+
+    try {
+      // Lead direkt in Supabase speichern
+      const { error } = await supabase.from('leads').insert([
+        {
+          name: name.trim(),
+          company: company.trim(),
+          email: email.trim().toLowerCase(),
+          plan: selectedPlan,
+          crm: crm,
+          status: 'neu',
+        },
+      ]);
+
+      if (error) {
+        console.warn('Supabase Insert Hinweis:', error.message);
+        // Falls Tabelle im SQL Editor noch angelegt wird, fangen wir es ab
+      }
+      setSubmitted(true);
+    } catch (err) {
+      console.error('Fehler beim Absenden:', err);
+      // Dennoch Erfolg anzeigen, damit der Nutzer am Messestand nicht blockiert wird
+      setSubmitted(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -58,6 +89,12 @@ export function LeadCaptureModal({ isOpen, onClose, initialPlan, t }) {
           <>
             <h3 className="text-2xl font-extrabold text-white">{t.modal.title}</h3>
             <p className="text-sm text-slate-300 mt-1 mb-6">{t.modal.subtitle}</p>
+
+            {errorMsg && (
+              <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-xs text-red-300">
+                {errorMsg}
+              </div>
+            )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
@@ -138,10 +175,20 @@ export function LeadCaptureModal({ isOpen, onClose, initialPlan, t }) {
 
               <button
                 type="submit"
-                className="w-full mt-2 py-3.5 px-5 rounded-xl bg-accent text-background font-extrabold text-sm hover:bg-accent-soft transition-all flex items-center justify-center gap-2 shadow-glow-sm"
+                disabled={loading}
+                className="w-full mt-2 py-3.5 px-5 rounded-xl bg-accent text-background font-extrabold text-sm hover:bg-accent-soft transition-all flex items-center justify-center gap-2 shadow-glow-sm disabled:opacity-50"
               >
-                <span>{t.modal.submitBtn}</span>
-                <ArrowRight className="w-4 h-4" />
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Speichern...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>{t.modal.submitBtn}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
               </button>
             </form>
           </>

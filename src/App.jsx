@@ -7,10 +7,12 @@ import { FeaturesSection } from './components/FeaturesSection';
 import { PricingSection } from './components/PricingSection';
 import { LeadCaptureModal } from './components/LeadCaptureModal';
 import { LegalModal } from './components/LegalModal';
+import { AdminDashboard } from './components/AdminDashboard';
 import { Footer } from './components/Footer';
 
 export default function App() {
   const [lang, setLang] = useState('de');
+  const [isAdminView, setIsAdminView] = useState(false);
   const [leadModalOpen, setLeadModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState('expopass');
 
@@ -19,6 +21,21 @@ export default function App() {
   const [activeLegalTab, setActiveLegalTab] = useState('impressum');
 
   useEffect(() => {
+    // Check if URL is /admin or #admin
+    const checkAdmin = () => {
+      const path = window.location.pathname.toLowerCase();
+      const hash = window.location.hash.toLowerCase();
+      if (path === '/admin' || hash === '#admin') {
+        setIsAdminView(true);
+      } else {
+        setIsAdminView(false);
+      }
+    };
+
+    checkAdmin();
+    window.addEventListener('popstate', checkAdmin);
+    window.addEventListener('hashchange', checkAdmin);
+
     // Automatically choose language based on domain (.com -> en, .de -> de)
     const host = window.location.hostname.toLowerCase();
     if (host.endsWith('.com') && !navigator.language.toLowerCase().startsWith('de')) {
@@ -39,7 +56,12 @@ export default function App() {
 
     handleHash();
     window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
+
+    return () => {
+      window.removeEventListener('popstate', checkAdmin);
+      window.removeEventListener('hashchange', checkAdmin);
+      window.removeEventListener('hashchange', handleHash);
+    };
   }, []);
 
   const t = translations[lang] || translations.de;
@@ -62,6 +84,19 @@ export default function App() {
     }
   };
 
+  // If in Admin View, show protected Admin Dashboard
+  if (isAdminView) {
+    return (
+      <AdminDashboard
+        onBackToLanding={() => {
+          window.location.hash = '';
+          history.pushState('', document.title, '/');
+          setIsAdminView(false);
+        }}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-background text-slate-100">
       <Navbar lang={lang} setLang={setLang} t={t} onOpenModal={handleOpenLeadModal} />
@@ -72,7 +107,7 @@ export default function App() {
         <PricingSection t={t} onOpenModal={handleOpenLeadModal} />
       </main>
       <Footer t={t} onOpenLegal={handleOpenLegalModal} lang={lang} />
-      
+
       {/* Lead / Pricing Order Modal */}
       <LeadCaptureModal
         isOpen={leadModalOpen}
