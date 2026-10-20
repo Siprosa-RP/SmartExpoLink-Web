@@ -1,7 +1,44 @@
-import React from 'react';
-import { Check, Sparkles, HelpCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { Check, Sparkles, HelpCircle, Loader2 } from 'lucide-react';
 
 export function PricingSection({ t, onOpenModal }) {
+  const [loadingPlan, setLoadingPlan] = useState('');
+
+  const handlePlanClick = async (planId) => {
+    // Bei Starter Trial: Modal öffnen
+    if (planId === 'starter') {
+      onOpenModal(planId);
+      return;
+    }
+
+    // Bei Bezahlplänen (Expo Pass 49 € oder Business Pro 29 €): Direkt zu Stripe Checkout
+    setLoadingPlan(planId);
+    try {
+      const res = await fetch('/api/create-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          plan: planId,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        // Fallback aufs Modal falls API lokal/offline
+        onOpenModal(planId);
+      }
+    } catch (err) {
+      console.warn('Stripe Redirect Fallback zu Modal:', err);
+      onOpenModal(planId);
+    } finally {
+      setLoadingPlan('');
+    }
+  };
+
   return (
     <div className="py-24 bg-surface/40 border-t border-slate-800/80 space-y-28">
       {/* 3-Tier Pricing Cards */}
@@ -66,14 +103,22 @@ export function PricingSection({ t, onOpenModal }) {
 
               <button
                 type="button"
-                onClick={() => onOpenModal(plan.id)}
-                className={`w-full py-3.5 px-5 rounded-xl font-bold text-sm transition-all ${
+                disabled={loadingPlan === plan.id}
+                onClick={() => handlePlanClick(plan.id)}
+                className={`w-full py-3.5 px-5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 ${
                   plan.highlighted
                     ? 'bg-accent text-background hover:bg-accent-soft shadow-glow-sm'
                     : 'bg-surface-elevated text-white border border-accent/30 hover:border-accent'
                 }`}
               >
-                {plan.cta}
+                {loadingPlan === plan.id ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Weiterleitung zu Stripe...</span>
+                  </>
+                ) : (
+                  <span>{plan.cta}</span>
+                )}
               </button>
             </div>
           ))}
