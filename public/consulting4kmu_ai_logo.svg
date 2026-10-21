@@ -87,14 +87,14 @@
   <!-- Subtitle: KI-AGENTUR FÜR DEN MITTELSTAND -->
   <g transform="translate(60, 315)">
     <text font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-size="34" font-weight="800" letter-spacing="6" fill="#0F172A">
-      KI-AGENTUR FÜR DEN MITTELSTAND
+      KI-AGENTUR F&#xDC;R DEN MITTELSTAND
     </text>
   </g>
 
-  <!-- Category Keywords: PROZESS-AUTOMATISIERUNG · KI-SYSTEME · DIGITALISIERUNG -->
+  <!-- Category Keywords: PROZESSOPTIMIERUNG MITTELS KI | KI-BERATUNG & IMPLEMENTIERUNG -->
   <g transform="translate(60, 365)">
-    <text font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-size="22" font-weight="600" letter-spacing="3" fill="#64748B">
-      PROZESS-AUTOMATISIERUNG  ▪  KI-SYSTEME  ▪  DIGITALE TRANSFORMATION
+    <text font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-size="22" font-weight="700" letter-spacing="3" fill="#64748B">
+      PROZESSOPTIMIERUNG MITTELS KI   |   KI-BERATUNG &amp; IMPLEMENTIERUNG
     </text>
   </g>
 </svg>

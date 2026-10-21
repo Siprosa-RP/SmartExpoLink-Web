@@ -1,3 +1,7 @@
+# UTF-8 Encoding erzwingen
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+
 Add-Type -AssemblyName System.Drawing
 
 function Render-Logo {
@@ -46,7 +50,7 @@ function Render-Logo {
     # Scale factor based on canvas size
     $scale = $width / 1200.0
 
-    # 1. EMBLEM "C" (Center at X=170, Y=175)
+    # 1. EMBLEM "C" (Center at X=170, Y=185)
     $cx = 175 * $scale
     $cy = 185 * $scale
     $radiusOuter = 135 * $scale
@@ -162,13 +166,18 @@ function Render-Logo {
     $lineY = 325 * $scale
     $g.DrawLine((New-Object System.Drawing.Pen($lineColor, (3 * $scale))), (75 * $scale), $lineY, ($width - 75 * $scale), $lineY)
 
-    # 4. PRIMARY CLAIM: "KI-AGENTUR FÜR DEN MITTELSTAND"
+    # 4. PRIMARY CLAIM: "KI-AGENTUR FÜR DEN MITTELSTAND" (Unicode escape for Ü to prevent encoding glitches)
+    $ueChar = [char]0x00DC
+    $claimText = "KI-AGENTUR F" + $ueChar + "R DEN MITTELSTAND"
     $claimY = 370 * $scale
-    $g.DrawString("KI-AGENTUR FÜR DEN MITTELSTAND", $fontClaim, $brushClaim, (75 * $scale), $claimY, $sf)
+    $g.DrawString($claimText, $fontClaim, $brushClaim, (75 * $scale), $claimY, $sf)
 
-    # 5. KEYWORDS: "PROZESS-AUTOMATISIERUNG  ▪  KI-SYSTEME  ▪  DIGITALE TRANSFORMATION"
+    # 5. KEYWORDS: "PROZESSOPTIMIERUNG MITTELS KI  |  BERATUNG & IMPLEMENTIERUNG"
+    # Gezielter Trenner ohne fehleranfällige Unicode-Sonderzeichen
+    $bullet = "   |   "
+    $kwText = "PROZESSOPTIMIERUNG MITTELS KI" + $bullet + "KI-BERATUNG & IMPLEMENTIERUNG"
     $kwY = 440 * $scale
-    $g.DrawString("PROZESS-AUTOMATISIERUNG   ▪   KI-SYSTEME   ▪   DIGITALE TRANSFORMATION", $fontKw, $brushKw, (75 * $scale), $kwY, $sf)
+    $g.DrawString($kwText, $fontKw, $brushKw, (75 * $scale), $kwY, $sf)
 
     $bmp.Save($outputPath, [System.Drawing.Imaging.ImageFormat]::Png)
     $g.Dispose()
@@ -179,10 +188,10 @@ function Render-Logo {
 $brainDir = "C:\Users\rolan\.gemini\antigravity\brain\175f7769-0c68-4c58-aec6-501e3b788756"
 $webDir = "c:\Drive\Google AI Studio\Visitenkarten\smartexpolink_web\public"
 
-# Render Light Version (Clean White Background for Stripe Invoices, Letters & Print)
+# Render Light Version
 Render-Logo -outputPath "$brainDir\consulting4kmu_ki_logo_light.png" -darkTheme $false
 Render-Logo -outputPath "$webDir\consulting4kmu_ki_logo_light.png" -darkTheme $false
 
-# Render Dark Mode Version (High-Tech for Dark Mode Websites & Social Media)
+# Render Dark Mode Version
 Render-Logo -outputPath "$brainDir\consulting4kmu_ki_logo_dark.png" -darkTheme $true
 Render-Logo -outputPath "$webDir\consulting4kmu_ki_logo_dark.png" -darkTheme $true
