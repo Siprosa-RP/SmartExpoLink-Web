@@ -35,46 +35,38 @@
     </filter>
   </defs>
 
-  <!-- ================= EMBLEM "C" MIT KI-NETZWERK & WACHSTUM (Left) ================= -->
-  <g transform="translate(60, 40)">
+  <!-- ================= EMBLEM "C" (Kompakter & perfekt austariert mit der Wortmarke) ================= -->
+  <g transform="translate(45, 45)">
     <!-- Outer Blue Orbital Arc of the "C" -->
-    <path d="M 215 50 A 135 135 0 1 0 215 250" fill="none" stroke="url(#blueGrad)" stroke-width="24" stroke-linecap="round" />
+    <path d="M 195 50 A 118 118 0 1 0 195 230" fill="none" stroke="url(#blueGrad)" stroke-width="22" stroke-linecap="round" />
     
-    <!-- Inner Green Tech/AI Arc (Harmonische Doppel-Kurve wie im Original) -->
-    <path d="M 185 68 A 108 108 0 1 0 185 232" fill="none" stroke="url(#greenGrad)" stroke-width="12" stroke-linecap="round" />
+    <!-- Inner Green Tech/AI Arc -->
+    <path d="M 168 66 A 94 94 0 1 0 168 214" fill="none" stroke="url(#greenGrad)" stroke-width="12" stroke-linecap="round" />
 
     <!-- AI Data / Analytics Bars inside the "C" -->
-    <!-- Bar 1 -->
-    <rect x="75" y="165" width="22" height="55" rx="5" fill="url(#barGrad1)" />
-    <!-- Bar 2 -->
-    <rect x="105" y="140" width="22" height="80" rx="5" fill="url(#barGrad2)" />
-    <!-- Bar 3 -->
-    <rect x="135" y="115" width="22" height="105" rx="5" fill="url(#barGrad3)" />
+    <rect x="70" y="152" width="19" height="48" rx="4" fill="url(#barGrad1)" />
+    <rect x="96" y="130" width="19" height="70" rx="4" fill="url(#barGrad2)" />
+    <rect x="122" y="106" width="19" height="94" rx="4" fill="url(#barGrad3)" />
 
     <!-- AI Neural Network Nodes & Growth Arrow -->
-    <!-- Connection Lines between bars & nodes -->
-    <line x1="86" y1="165" x2="116" y2="140" stroke="#0284C7" stroke-width="4" stroke-dasharray="2,2" />
-    <line x1="116" y1="140" x2="146" y2="115" stroke="#0284C7" stroke-width="4" stroke-dasharray="2,2" />
+    <line x1="80" y1="152" x2="106" y2="130" stroke="#0284C7" stroke-width="3.5" stroke-dasharray="2,2" />
+    <line x1="106" y1="130" x2="132" y2="106" stroke="#0284C7" stroke-width="3.5" stroke-dasharray="2,2" />
 
-    <!-- AI Nodes (Pulse Dots) -->
-    <circle cx="86" cy="165" r="5.5" fill="#38BDF8" stroke="#FFFFFF" stroke-width="2" />
-    <circle cx="116" cy="140" r="5.5" fill="#38BDF8" stroke="#FFFFFF" stroke-width="2" />
-    <circle cx="146" cy="115" r="5.5" fill="#38BDF8" stroke="#FFFFFF" stroke-width="2" />
+    <circle cx="80" cy="152" r="5" fill="#38BDF8" stroke="#FFFFFF" stroke-width="2" />
+    <circle cx="106" cy="130" r="5" fill="#38BDF8" stroke="#FFFFFF" stroke-width="2" />
+    <circle cx="132" cy="106" r="5" fill="#38BDF8" stroke="#FFFFFF" stroke-width="2" />
 
-    <!-- Dynamic AI Growth Arrow (Electric Blue / White Core) -->
-    <!-- Main Arrow Shaft -->
-    <polyline points="65,190 95,160 120,175 220,70" fill="none" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
-    <polyline points="65,190 95,160 120,175 220,70" fill="none" stroke="url(#blueGrad)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)" />
+    <!-- Dynamic AI Growth Arrow -->
+    <polyline points="60,175 88,148 110,162 196,72" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+    <polyline points="60,175 88,148 110,162 196,72" fill="none" stroke="url(#blueGrad)" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)" />
     
-    <!-- Arrow Head -->
-    <polygon points="228,62 188,72 208,92" fill="#0284C7" />
-    <polygon points="228,62 194,76 206,88" fill="#38BDF8" />
+    <polygon points="204,64 170,72 186,88" fill="#0284C7" />
+    <polygon points="204,64 175,75 185,85" fill="#38BDF8" />
   </g>
 
-  <!-- ================= TYPOGRAPHY (Right) ================= -->
-  <!-- "Consulting4KMU" -->
-  <g transform="translate(305, 175)">
-    <text font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-size="82" letter-spacing="-1">
+  <!-- ================= TYPOGRAPHY (Näher am C & größer skaliert -> Nahtlos "Consulting4KMU") ================= -->
+  <g transform="translate(258, 178)">
+    <text font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-size="98" letter-spacing="-1.5">
       <tspan font-weight="700" fill="#334155">onsulting</tspan>
       <tspan font-weight="900" fill="#0284C7">4</tspan>
       <tspan font-weight="800" fill="#0F172A">KMU</tspan>
@@ -84,16 +76,16 @@
   <!-- Sleek Dividing Line -->
   <line x1="60" y1="265" x2="1140" y2="265" stroke="#0F172A" stroke-width="2.5" stroke-linecap="round" />
 
-  <!-- Subtitle: KI-AGENTUR FÜR DEN MITTELSTAND -->
-  <g transform="translate(60, 315)">
-    <text font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-size="34" font-weight="800" letter-spacing="6" fill="#0F172A">
+  <!-- Subtitle (EXAKT ZENTRIERT): KI-AGENTUR FÜR DEN MITTELSTAND -->
+  <g transform="translate(600, 315)">
+    <text text-anchor="middle" font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-size="34" font-weight="800" letter-spacing="6" fill="#0F172A">
       KI-AGENTUR F&#xDC;R DEN MITTELSTAND
     </text>
   </g>
 
-  <!-- Category Keywords: PROZESSOPTIMIERUNG MITTELS KI | KI-BERATUNG & IMPLEMENTIERUNG -->
-  <g transform="translate(60, 365)">
-    <text font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-size="22" font-weight="700" letter-spacing="3" fill="#64748B">
+  <!-- Category Keywords (EXAKT ZENTRIERT): PROZESSOPTIMIERUNG MITTELS KI | KI-BERATUNG & IMPLEMENTIERUNG -->
+  <g transform="translate(600, 365)">
+    <text text-anchor="middle" font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-size="22" font-weight="700" letter-spacing="3" fill="#64748B">
       PROZESSOPTIMIERUNG MITTELS KI   |   KI-BERATUNG &amp; IMPLEMENTIERUNG
     </text>
   </g>

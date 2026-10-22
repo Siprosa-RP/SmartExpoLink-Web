@@ -47,49 +47,49 @@ function Render-Logo {
     # Background
     $g.Clear($bgColor)
 
-    # Scale factor based on canvas size
+    # Scale factor
     $scale = $width / 1200.0
 
-    # 1. EMBLEM "C" (Center at X=170, Y=185)
-    $cx = 175 * $scale
-    $cy = 185 * $scale
-    $radiusOuter = 135 * $scale
-    $radiusInner = 108 * $scale
+    # 1. EMBLEM "C" (Etwas kompakter & harmonisch skaliert, damit es perfekt mit der vergrößerten Wortmarke verschmilzt)
+    $cx = 160 * $scale
+    $cy = 175 * $scale
+    $radiusOuter = 118 * $scale
+    $radiusInner = 94 * $scale
 
     # Outer Blue Arc
-    $penBlue = New-Object System.Drawing.Pen($blueColor, (24 * $scale))
+    $penBlue = New-Object System.Drawing.Pen($blueColor, (22 * $scale))
     $penBlue.StartCap = [System.Drawing.Drawing2D.LineCap]::Round
     $penBlue.EndCap = [System.Drawing.Drawing2D.LineCap]::Round
     $g.DrawArc($penBlue, ($cx - $radiusOuter), ($cy - $radiusOuter), ($radiusOuter * 2), ($radiusOuter * 2), 35, 290)
 
     # Inner Green Arc
-    $penGreen = New-Object System.Drawing.Pen($greenColor, (14 * $scale))
+    $penGreen = New-Object System.Drawing.Pen($greenColor, (12 * $scale))
     $penGreen.StartCap = [System.Drawing.Drawing2D.LineCap]::Round
     $penGreen.EndCap = [System.Drawing.Drawing2D.LineCap]::Round
     $g.DrawArc($penGreen, ($cx - $radiusInner), ($cy - $radiusInner), ($radiusInner * 2), ($radiusInner * 2), 45, 270)
 
     # Data Analytics / AI Growth Bars inside "C"
-    $bWidth = 22 * $scale
-    $bGap = 8 * $scale
-    $startX = $cx - (50 * $scale)
-    $baseY = $cy + (50 * $scale)
+    $bWidth = 19 * $scale
+    $bGap = 7 * $scale
+    $startX = $cx - (44 * $scale)
+    $baseY = $cy + (44 * $scale)
 
     # Bar 1
-    $h1 = 55 * $scale
+    $h1 = 48 * $scale
     $g.FillRectangle((New-Object System.Drawing.SolidBrush($bar1)), $startX, ($baseY - $h1), $bWidth, $h1)
 
     # Bar 2
-    $h2 = 80 * $scale
+    $h2 = 70 * $scale
     $x2 = $startX + $bWidth + $bGap
     $g.FillRectangle((New-Object System.Drawing.SolidBrush($bar2)), $x2, ($baseY - $h2), $bWidth, $h2)
 
     # Bar 3
-    $h3 = 108 * $scale
+    $h3 = 94 * $scale
     $x3 = $x2 + $bWidth + $bGap
     $g.FillRectangle((New-Object System.Drawing.SolidBrush($bar3)), $x3, ($baseY - $h3), $bWidth, $h3)
 
     # Neural Network / AI connection dots & lines
-    $dotPen = New-Object System.Drawing.Pen($cyanLight, (4 * $scale))
+    $dotPen = New-Object System.Drawing.Pen($cyanLight, (3.5 * $scale))
     $dotPen.DashStyle = [System.Drawing.Drawing2D.DashStyle]::Dash
     $p1 = New-Object System.Drawing.PointF(($startX + $bWidth/2), ($baseY - $h1))
     $p2 = New-Object System.Drawing.PointF(($x2 + $bWidth/2), ($baseY - $h2))
@@ -98,48 +98,49 @@ function Render-Logo {
     $g.DrawLine($dotPen, $p2, $p3)
 
     $dotBrush = New-Object System.Drawing.SolidBrush($cyanLight)
-    $dotR = 6 * $scale
+    $dotR = 5 * $scale
     $g.FillEllipse($dotBrush, ($p1.X - $dotR), ($p1.Y - $dotR), ($dotR * 2), ($dotR * 2))
     $g.FillEllipse($dotBrush, ($p2.X - $dotR), ($p2.Y - $dotR), ($dotR * 2), ($dotR * 2))
     $g.FillEllipse($dotBrush, ($p3.X - $dotR), ($p3.Y - $dotR), ($dotR * 2), ($dotR * 2))
 
-    # Dynamic AI Growth Arrow (Electric Blue / White Border)
-    $arrPenWhite = New-Object System.Drawing.Pen($bgColor, (16 * $scale))
+    # Dynamic AI Growth Arrow (Electric Blue / Background Border)
+    $arrPenWhite = New-Object System.Drawing.Pen($bgColor, (14 * $scale))
     $arrPenWhite.StartCap = [System.Drawing.Drawing2D.LineCap]::Round
     $arrPenWhite.EndCap = [System.Drawing.Drawing2D.LineCap]::Round
     $arrPenWhite.LineJoin = [System.Drawing.Drawing2D.LineJoin]::Round
 
-    $arrPenBlue = New-Object System.Drawing.Pen($blueColor, (11 * $scale))
+    $arrPenBlue = New-Object System.Drawing.Pen($blueColor, (9.5 * $scale))
     $arrPenBlue.StartCap = [System.Drawing.Drawing2D.LineCap]::Round
     $arrPenBlue.EndCap = [System.Drawing.Drawing2D.LineCap]::Round
     $arrPenBlue.LineJoin = [System.Drawing.Drawing2D.LineJoin]::Round
 
     $pts = @(
-        (New-Object System.Drawing.PointF(($startX - 15 * $scale), ($baseY + 10 * $scale))),
-        (New-Object System.Drawing.PointF(($startX + 22 * $scale), ($baseY - 25 * $scale))),
-        (New-Object System.Drawing.PointF(($x2 + 20 * $scale), ($baseY - 10 * $scale))),
-        (New-Object System.Drawing.PointF(($cx + 85 * $scale), ($cy - 95 * $scale)))
+        (New-Object System.Drawing.PointF(($startX - 12 * $scale), ($baseY + 8 * $scale))),
+        (New-Object System.Drawing.PointF(($startX + 19 * $scale), ($baseY - 22 * $scale))),
+        (New-Object System.Drawing.PointF(($x2 + 18 * $scale), ($baseY - 8 * $scale))),
+        (New-Object System.Drawing.PointF(($cx + 74 * $scale), ($cy - 82 * $scale)))
     )
 
     $g.DrawLines($arrPenWhite, $pts)
     $g.DrawLines($arrPenBlue, $pts)
 
     # Arrow Head
-    $tip = New-Object System.Drawing.PointF(($cx + 96 * $scale), ($cy - 106 * $scale))
+    $tip = New-Object System.Drawing.PointF(($cx + 84 * $scale), ($cy - 92 * $scale))
     $arrowPoly = @(
         $tip,
-        (New-Object System.Drawing.PointF(($tip.X - 38 * $scale), ($tip.Y + 6 * $scale))),
-        (New-Object System.Drawing.PointF(($tip.X - 18 * $scale), ($tip.Y + 28 * $scale)))
+        (New-Object System.Drawing.PointF(($tip.X - 33 * $scale), ($tip.Y + 5 * $scale))),
+        (New-Object System.Drawing.PointF(($tip.X - 16 * $scale), ($tip.Y + 24 * $scale)))
     )
     $g.FillPolygon((New-Object System.Drawing.SolidBrush($blueColor)), $arrowPoly)
 
-    # 2. TYPOGRAPHY: "onsulting4KMU"
+    # 2. TYPOGRAPHY: "onsulting4KMU" (Viel näher an das "C", Schrift deutlich vergrößert für nahtloses "Consulting4KMU")
     $fontFamily = "Segoe UI"
     $fontNames = [System.Drawing.FontFamily]::Families | ForEach-Object { $_.Name }
     if ($fontNames -contains "Inter") { $fontFamily = "Inter" }
 
-    $fontTitle = New-Object System.Drawing.Font($fontFamily, (86 * $scale), [System.Drawing.FontStyle]::Bold, [System.Drawing.GraphicsUnit]::Pixel)
-    $font4 = New-Object System.Drawing.Font($fontFamily, (86 * $scale), [System.Drawing.FontStyle]::Bold, [System.Drawing.GraphicsUnit]::Pixel)
+    # Schriftgröße deutlich erhöht: 104px (vorher 86px)
+    $fontTitle = New-Object System.Drawing.Font($fontFamily, (104 * $scale), [System.Drawing.FontStyle]::Bold, [System.Drawing.GraphicsUnit]::Pixel)
+    $font4 = New-Object System.Drawing.Font($fontFamily, (104 * $scale), [System.Drawing.FontStyle]::Bold, [System.Drawing.GraphicsUnit]::Pixel)
     $fontClaim = New-Object System.Drawing.Font($fontFamily, (35 * $scale), [System.Drawing.FontStyle]::Bold, [System.Drawing.GraphicsUnit]::Pixel)
     $fontKw = New-Object System.Drawing.Font($fontFamily, (22 * $scale), [System.Drawing.FontStyle]::Bold, [System.Drawing.GraphicsUnit]::Pixel)
 
@@ -148,8 +149,9 @@ function Render-Logo {
     $brushClaim = New-Object System.Drawing.SolidBrush($textColorSub)
     $brushKw = New-Object System.Drawing.SolidBrush($kwColor)
 
-    $textStartX = 345 * $scale
-    $textStartY = 110 * $scale
+    # Deutlich näher an das C herangerückt: 275px (vorher 345px)
+    $textStartX = 278 * $scale
+    $textStartY = 100 * $scale
     $sf = [System.Drawing.StringFormat]::GenericTypographic
 
     $sizeOns = $g.MeasureString("onsulting", $fontTitle, 2000, $sf)
@@ -157,27 +159,31 @@ function Render-Logo {
 
     # "onsulting"
     $g.DrawString("onsulting", $fontTitle, $brushText, $textStartX, $textStartY, $sf)
-    # "4" in Blue
+    # "4" in Electric Blue
     $g.DrawString("4", $font4, $brushBlue, ($textStartX + $sizeOns.Width - (4 * $scale)), $textStartY, $sf)
     # "KMU" in Bold
     $g.DrawString("KMU", $fontTitle, $brushText, ($textStartX + $sizeOns.Width + $size4.Width - (8 * $scale)), $textStartY, $sf)
 
-    # 3. DIVIDING LINE
+    # 3. DIVIDING LINE (Zentriert)
     $lineY = 325 * $scale
-    $g.DrawLine((New-Object System.Drawing.Pen($lineColor, (3 * $scale))), (75 * $scale), $lineY, ($width - 75 * $scale), $lineY)
+    $lineMargin = 80 * $scale
+    $g.DrawLine((New-Object System.Drawing.Pen($lineColor, (3 * $scale))), $lineMargin, $lineY, ($width - $lineMargin), $lineY)
 
-    # 4. PRIMARY CLAIM: "KI-AGENTUR FÜR DEN MITTELSTAND" (Unicode escape for Ü to prevent encoding glitches)
+    # 4. PRIMARY CLAIM: "KI-AGENTUR FÜR DEN MITTELSTAND" (EXAKT ZENTRIERT)
     $ueChar = [char]0x00DC
     $claimText = "KI-AGENTUR F" + $ueChar + "R DEN MITTELSTAND"
+    $sizeClaim = $g.MeasureString($claimText, $fontClaim, 2000, $sf)
+    $claimX = ($width - $sizeClaim.Width) / 2.0
     $claimY = 370 * $scale
-    $g.DrawString($claimText, $fontClaim, $brushClaim, (75 * $scale), $claimY, $sf)
+    $g.DrawString($claimText, $fontClaim, $brushClaim, $claimX, $claimY, $sf)
 
-    # 5. KEYWORDS: "PROZESSOPTIMIERUNG MITTELS KI  |  BERATUNG & IMPLEMENTIERUNG"
-    # Gezielter Trenner ohne fehleranfällige Unicode-Sonderzeichen
+    # 5. KEYWORDS: "PROZESSOPTIMIERUNG MITTELS KI  |  KI-BERATUNG & IMPLEMENTIERUNG" (EXAKT ZENTRIERT)
     $bullet = "   |   "
     $kwText = "PROZESSOPTIMIERUNG MITTELS KI" + $bullet + "KI-BERATUNG & IMPLEMENTIERUNG"
+    $sizeKw = $g.MeasureString($kwText, $fontKw, 2000, $sf)
+    $kwX = ($width - $sizeKw.Width) / 2.0
     $kwY = 440 * $scale
-    $g.DrawString($kwText, $fontKw, $brushKw, (75 * $scale), $kwY, $sf)
+    $g.DrawString($kwText, $fontKw, $brushKw, $kwX, $kwY, $sf)
 
     $bmp.Save($outputPath, [System.Drawing.Imaging.ImageFormat]::Png)
     $g.Dispose()
